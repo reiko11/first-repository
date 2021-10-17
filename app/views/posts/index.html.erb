@@ -1,0 +1,75 @@
+<!DOCTYPE html> <!--　この文章がHTML文章であることを伝える要素です。-->
+<html lang="ja"><!--言語の指定-->
+    <head><!--ページに表示されない情報(サイトの裏側の設定)-->
+        <meta charset="utf-8">
+        <title>投稿一覧</title><!--ブラウザのタブのタイトルを指定-->
+        <%= stylesheet_link_tag ' ', :media => "all" %>
+    </head>
+
+    <body>
+    <header>
+        
+    </header>
+
+    <div class="allpost">
+        <h5>all posts</h5> 
+    </div>
+    <div class="search">
+        <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
+        <%= text_field_tag :search %>
+        <%= submit_tag 'search', class: "searchbtn" %>
+        <% end %>
+    </div>
+
+    <%= link_to "新規投稿ページへ", new_post_path %>
+    <% if user_signed_in? %>
+    <%= link_to "マイページへ", user_path(current_user.id) %>　
+    <% end %>
+    <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+    
+    <div class="posts-container">
+      <div class="row">
+        <% @posts.each do |t| %>
+          <div class="col-sm-3 box">
+            <div class="card" style="width: 255px; ">
+              <div class="card-img-top">
+                <%= image_tag t.image_url, size: "250x200" if t.image?  %>
+              </div>
+
+              <div class="card-body">
+                <p class="card-text">
+                  <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+                </p>
+                
+
+                <% if user_signed_in? %>
+                  <% if current_user.already_liked?(t) %>
+                    <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+                      <i class="fas fa-heart"></i><%= t.likes.count %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+                      <i class="far fa-heart"></i><%= t.likes.count %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <i class="far fa-heart"></i><%= t.likes.count %>
+                <% end %>
+                
+                    <%= link_to "To details", post_path(t.id), class: "link" %>
+                    <% if user_signed_in? && current_user.id == t.user_id %>
+                      <%= link_to "Try to edit", edit_post_path(t.id), class: "link" %>
+                      <%= button_to "Delete", post_path(t.id), method: :delete %>
+                    <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
+  </body>
+</html>
+
+
+
