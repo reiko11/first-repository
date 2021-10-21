@@ -1,3 +1,48 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.card{
+    margin-top: 30px;;
+    margin-bottom: 20px;
+}
+
+.allpost{
+    text-align: center;
+    position: relative;
+    color:slategrey;
+}
+
+.search{
+    text-align: center;
+    position: relative;
+}
+
+.edit-container{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.postdetail{
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.showlike{
+    width: 500px;
+    margin: 0  auto;
+    text-align: center;
+}
+
+.comment-wrapper{
+    width: 500px;
+    margin: 0  auto;
+    text-align: center;
+}
+
+.title{
+    width: 100%;
+    margin: 0  auto;
+    text-align: center;
+}

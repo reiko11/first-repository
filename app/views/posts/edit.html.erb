@@ -1,5 +1,10 @@
-<%= form_for @post do |f| %>
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-    <%= f.submit "編集する" %>
-<% end %>
+<div clas="edit-container">
+    <%= form_for @post do |f| %>
+        <p><%= f.label :image %></p>
+        <p><%= f.file_field :image %></p>
+        <p><%= f.label :about %></p>
+        <p><%= f.text_field :about %></p>
+        <%= f.submit "編集する" %>
+    <% end %>
+
+</div>

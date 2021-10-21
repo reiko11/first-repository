@@ -5,7 +5,7 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :liked_tweets, through: :likes, source: :post
+  has_many :liked_posts, through: :likes, source: :post
   def already_liked?(post)
     self.likes.exists?(post_id: post.id)
   end
@@ -33,5 +33,5 @@ class User < ApplicationRecord
   def unfollow!(other_user)
     following_relationships.find_by(following_id: other_user.id).destroy
   end
-
+  has_many :comments, dependent: :destroy
 end

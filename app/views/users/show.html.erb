@@ -1,26 +1,44 @@
-<h1>users#show</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
-　　　<%= render 'follow_form' %>
-　　　<%= render 'stats' %>
+<body>
+    <h5 class="h5">ユーザー詳細</h5>
+    <div class="user-image"><%= image_tag @user.image_url, class: "rounded-circle", size: "200x200" if @user.image?  %></div>
+    <div class="profile">
+        <% if current_user.id == @user.id %>
+            <%= link_to "編集する", edit_user_registration_path %>
+        <% end %>
+        <p>名前 : <%= @user.name %></p>
+        <p>メールアドレス : <%= @user.email %></p>
+        <p>プロフィール : <%= @user.profile %></p>
+        　　　<%= render 'follow_form' %>
+        　　　<%= render 'stats' %>
+    </div>
+    <div class="user-post-container">
+        <h5 class="h5">ユーザーの投稿一覧</h5>
+        <div class="row">
+            <% @user.posts.each do |t| %>
+                <div class="col-sm-3 box">
+                    <div class="card" style="width: 255px; ">
+                        <%= image_tag t.image_url, size: "250x200" if t.image?  %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
 
-<% if current_user.id == @user.id %>
-    <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
+    <div class="user-likes-container">
+        <h5 class="h5">ユーザーがいいねした投稿一覧</h5>
+        <div class="row">
+            <% @user.liked_posts.each do |t| %>
+                <div class="col-sm-3 box">
+                    <div class="card" style="width: 255px; ">
+                        <%= image_tag t.image_url, size: "250x200" if t.image?  %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.posts.each do |t| %>
-    <%= t.user.name %>
-    <%= image_tag t.image_url, size: "250x200" if t.image?  %>
-<% end %>
 
-<!-- 以下はいいね機能を実装している場合-->
-<h2>ユーザーがいいねした投稿一覧</h2>
-<% @user.liked_tweets.each do |t| %>
-    <%= t.user.name %>
-    <%= image_tag t.image_url, size: "250x200" if t.image?  %>
-<% end %>
-<!-- ここまで-->
+    
 
-<%= link_to "投稿一覧に戻る", posts_path %>
+    <p><%= link_to "投稿一覧に戻る", posts_path %></p>
+</body>

@@ -3,13 +3,9 @@
     <head><!--ページに表示されない情報(サイトの裏側の設定)-->
         <meta charset="utf-8">
         <title>投稿一覧</title><!--ブラウザのタブのタイトルを指定-->
-        <%= stylesheet_link_tag ' ', :media => "all" %>
     </head>
 
     <body>
-    <header>
-        
-    </header>
 
     <div class="allpost">
         <h5>all posts</h5> 
@@ -39,6 +35,7 @@
               <div class="card-body">
                 <p class="card-text">
                   <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+                  <p><%= t.about %></p>
                 </p>
                 
 
@@ -61,6 +58,7 @@
                       <%= link_to "Try to edit", edit_post_path(t.id), class: "link" %>
                       <%= button_to "Delete", post_path(t.id), method: :delete %>
                     <% end %>
+              </div>
             </div>
           </div>
         <% end %>
